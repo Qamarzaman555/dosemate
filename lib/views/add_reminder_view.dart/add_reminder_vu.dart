@@ -71,7 +71,7 @@ class AddReminderVU extends StackedView<AddReminderVM> {
                   onPressed: () async {
                     TimeOfDay? newTime = await showTimePicker(
                       context: context,
-                      initialTime: TimeOfDay.now(),
+                      initialTime: viewModel.time,
                     );
 
                     if (newTime != null) {
@@ -95,12 +95,24 @@ class AddReminderVU extends StackedView<AddReminderVM> {
                   spacing: 8.0,
                   children: ['Before Meal', 'After Meal']
                       .map((note) => ChoiceChip(
-                            label: Text(note),
+                            label: Text(
+                              note,
+                              style: TextStyle(
+                                color: viewModel.selectedNote == note
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                            ),
                             selected: viewModel.selectedNote == note,
+                            selectedColor:
+                                Theme.of(context).colorScheme.primary,
                             onSelected: (bool selected) {
                               viewModel
                                   .updateSelectedNote(selected ? note : null);
                             },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
                           ))
                       .toList(),
                 ),
@@ -126,12 +138,24 @@ class AddReminderVU extends StackedView<AddReminderVM> {
                     spacing: 8.0,
                     children: viewModel.doseOptions[viewModel.selectedDoseType]!
                         .map((dose) => ChoiceChip(
-                              label: Text(dose),
+                              label: Text(
+                                dose,
+                                style: TextStyle(
+                                  color: viewModel.selectedDose == dose
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                              ),
                               selected: viewModel.selectedDose == dose,
+                              selectedColor:
+                                  Theme.of(context).colorScheme.primary,
                               onSelected: (bool selected) {
                                 viewModel
                                     .updateSelectedDose(selected ? dose : null);
                               },
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
                             ))
                         .toList(),
                   ),
@@ -142,7 +166,9 @@ class AddReminderVU extends StackedView<AddReminderVM> {
                       ? null
                       : () {
                           viewModel.addReminder(
-                              context, SessionController().userId!);
+                            context,
+                            SessionController().userId!,
+                          );
                         },
                   label:
                       viewModel.isBusy ? 'Adding Reminder...' : 'Add Reminder',
