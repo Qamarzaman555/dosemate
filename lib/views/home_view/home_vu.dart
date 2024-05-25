@@ -108,6 +108,9 @@ class HomeVU extends StackedView<HomeVM> {
                           String notes = doc.get('notes');
                           String doseType = doc.get('doseType');
 
+                          IconData doseTypeIcon =
+                              viewModel.getDoseTypeIcon(doseType);
+
                           Notifications.showNotifications(
                             dateTime: date,
                             id: index,
@@ -136,12 +139,18 @@ class HomeVU extends StackedView<HomeVM> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      '$formattedTime - $medicationName',
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                    Row(
+                                      children: [
+                                        Icon(doseTypeIcon),
+                                        const SizedBox(width: 8),
+                                        Text(
+                                          '$formattedTime - $medicationName',
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     const SizedBox(height: 8),
                                     Text(

@@ -165,13 +165,16 @@ class AddReminderVU extends StackedView<AddReminderVM> {
                   onPressed: viewModel.isBusy
                       ? null
                       : () {
-                          viewModel.addReminder(
-                            context,
-                            SessionController().userId!,
-                          );
+                          if (viewModel.validateFields()) {
+                            viewModel.addReminder(
+                              context,
+                              SessionController().userId!,
+                            );
+                          } else {
+                            Utils.toastMessage('Please fill all the fields');
+                          }
                         },
-                  label:
-                      viewModel.isBusy ? 'Adding Reminder...' : 'Add Reminder',
+                  label: viewModel.isBusy ? 'Adding...' : 'Add Reminder',
                 )
               ],
             ),

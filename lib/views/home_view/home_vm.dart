@@ -85,4 +85,19 @@ class HomeVM extends BaseViewModel {
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => const HomeVU()));
   }
+
+  IconData getDoseTypeIcon(String doseType) {
+    switch (doseType) {
+      case 'Tablets':
+        return Icons.local_hospital;
+      case 'Pill':
+        return Icons.medication;
+      case 'Liquid':
+        return Icons.liquor;
+      case 'Injection':
+        return Icons.local_pharmacy;
+      default:
+        return Icons.help_outline; // Default icon for unknown dose types
+    }
+  }
 }

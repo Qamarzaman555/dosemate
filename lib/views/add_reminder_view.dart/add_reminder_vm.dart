@@ -70,7 +70,20 @@ class AddReminderVM extends BaseViewModel {
     notifyListeners();
   }
 
+  bool validateFields() {
+    return name != null &&
+        name!.isNotEmpty &&
+        selectedDoseType != null &&
+        selectedDose != null &&
+        selectedNote != null;
+  }
+
   Future<void> addReminder(BuildContext context, String uid) async {
+    if (!validateFields()) {
+      Utils.toastMessage('Please fill all the fields');
+      return;
+    }
+
     setBusy(true);
     try {
       DateTime dateTime = DateTime(selectedDate.year, selectedDate.month,

@@ -50,7 +50,7 @@ Widget customButtons(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        color: Colors.orange,
+        color: Theme.of(context).colorScheme.primary,
       ),
       child: Center(
         child: Text(
