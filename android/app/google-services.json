@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "648857501821",
+    "firebase_url": "https://dosemate-72f52-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "dosemate-72f52",
+    "storage_bucket": "dosemate-72f52.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648857501821:android:b79eb620b47c13907e3114",
+        "android_client_info": {
+          "package_name": "com.example.dosemate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkYzVnhMfjSeFE9cX3yoNML9NX524Mz_I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648857501821:android:d135e66eafcb9a5c7e3114",
+        "android_client_info": {
+          "package_name": "com.qa.dosemate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkYzVnhMfjSeFE9cX3yoNML9NX524Mz_I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
