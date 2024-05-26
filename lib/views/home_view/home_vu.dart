@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dosemate/utils/utils.dart';
 import 'package:dosemate/widgets/delete_reminder.dart';
 import 'package:dosemate/widgets/uk_appbar.dart';
 import 'package:flutter/material.dart';
@@ -108,7 +109,7 @@ class HomeVU extends StackedView<HomeVM> {
                           String notes = doc.get('notes');
                           String doseType = doc.get('doseType');
 
-                          IconData doseTypeIcon =
+                          Widget doseTypeIcon =
                               viewModel.getDoseTypeIcon(doseType);
 
                           Notifications.showNotifications(
@@ -121,94 +122,116 @@ class HomeVU extends StackedView<HomeVM> {
 
                           return Padding(
                             padding: const EdgeInsets.all(8),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 2,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 3),
-                                  ),
-                                ],
-                              ),
+                            child: Card(
+                              elevation: 3,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  side: BorderSide(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                      width: 3)),
                               child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
+                                padding: const EdgeInsets.only(
+                                    left: 12, right: 12, top: 16, bottom: 8),
+                                child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      children: [
-                                        Icon(doseTypeIcon),
-                                        const SizedBox(width: 8),
-                                        Text(
-                                          '$formattedTime - $medicationName',
-                                          style: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 4, top: 12),
+                                      child: doseTypeIcon,
+                                    ),
+                                    8.spaceX,
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(doseType,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleLarge!
+                                                      .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                              const Spacer(),
+                                              Switcher(
+                                                onOff: viewModel.on,
+                                                uid: viewModel.user!,
+                                                timestamp: doc.get('timestamp'),
+                                                id: doc.id,
+                                                onToggle: (bool value) {
+                                                  if (value) {
+                                                    Notifications
+                                                        .showNotifications(
+                                                      dateTime: date,
+                                                      id: index,
+                                                      title:
+                                                          'Medication Reminder: $medicationName',
+                                                      body:
+                                                          'Dosage: $dosage\nNotes: $notes\nDose Type: $doseType',
+                                                    );
+                                                  } else {
+                                                    Notifications
+                                                        .cancelNotification(
+                                                            id: index);
+                                                  }
+                                                },
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      'Dosage: $dosage',
-                                      style: const TextStyle(
-                                        fontSize: 16,
+                                          Text(
+                                            medicationName,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                dosage,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleMedium!
+                                                    .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                              ),
+                                              Text(formattedTime,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleMedium!
+                                                      .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'Notes: $notes',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleMedium,
+                                              ),
+                                              IconButton(
+                                                onPressed: () {
+                                                  deleteReminder(context,
+                                                      doc.id, viewModel.user!);
+                                                },
+                                                icon: const Icon(
+                                                    Icons.delete_outline),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      'Notes: $notes',
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontStyle: FontStyle.italic,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      'Dose Type: $doseType',
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 16),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Switcher(
-                                          onOff: viewModel.on,
-                                          uid: viewModel.user!,
-                                          timestamp: doc.get('timestamp'),
-                                          id: doc.id,
-                                          onToggle: (bool value) {
-                                            if (value) {
-                                              Notifications.showNotifications(
-                                                dateTime: date,
-                                                id: index,
-                                                title:
-                                                    'Medication Reminder: $medicationName',
-                                                body:
-                                                    'Dosage: $dosage\nNotes: $notes\nDose Type: $doseType',
-                                              );
-                                            } else {
-                                              Notifications.cancelNotification(
-                                                  id: index);
-                                            }
-                                          },
-                                        ),
-                                        IconButton(
-                                          onPressed: () {
-                                            deleteReminder(context, doc.id,
-                                                viewModel.user!);
-                                          },
-                                          icon:
-                                              const Icon(Icons.delete_outline),
-                                        ),
-                                      ],
                                     ),
                                   ],
                                 ),

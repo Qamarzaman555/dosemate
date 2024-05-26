@@ -86,18 +86,19 @@ class HomeVM extends BaseViewModel {
         context, MaterialPageRoute(builder: (context) => const HomeVU()));
   }
 
-  IconData getDoseTypeIcon(String doseType) {
+  Widget getDoseTypeIcon(String doseType) {
     switch (doseType) {
       case 'Tablets':
-        return Icons.local_hospital;
+        return const Icon(Icons.medication, color: Colors.blue);
       case 'Pill':
-        return Icons.medication;
+        return const Icon(Icons.medication, color: Colors.yellow);
       case 'Liquid':
-        return Icons.liquor;
+        return const Icon(Icons.liquor, color: Colors.orange);
       case 'Injection':
-        return Icons.local_pharmacy;
+        return const Icon(Icons.local_pharmacy, color: Colors.red);
       default:
-        return Icons.help_outline; // Default icon for unknown dose types
+        return const Icon(
+            Icons.help_outline); // Default icon for unknown dose types
     }
   }
 }

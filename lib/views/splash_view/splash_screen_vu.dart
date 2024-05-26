@@ -1,3 +1,4 @@
+import 'package:dosemate/utils/utils.dart';
 import 'package:flutter/material.dart';
 import '../../services/splash_services.dart';
 
@@ -20,21 +21,33 @@ class _SplashScreenState extends State<SplashScreenVU> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Dosemate',
-              style: Theme.of(context).textTheme.headlineLarge,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Spacer(),
+          Text(
+            'Dosemate',
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.bold),
+          ),
+          14.spaceY,
+          Text(
+            'Be in control of your meds',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          50.spaceY,
+          Container(
+            height: MediaQuery.sizeOf(context).height / 2.8,
+            width: MediaQuery.sizeOf(context).width,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/macro-pills.jpg'),
+                fit: BoxFit.cover,
+              ),
             ),
-            const SizedBox(height: 20),
-            Text(
-              'Be in control of your meds',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
