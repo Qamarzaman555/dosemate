@@ -8,7 +8,7 @@ import 'package:horizontal_center_date_picker/horizontal_date_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import '../../services/notifications.dart';
-import '../../widgets/switcher.dart';
+import '../../widgets/checker.dart';
 import 'home_vm.dart';
 
 class HomeVU extends StackedView<HomeVM> {
@@ -157,28 +157,45 @@ class HomeVU extends StackedView<HomeVM> {
                                                           fontWeight:
                                                               FontWeight.bold)),
                                               const Spacer(),
-                                              Switcher(
-                                                onOff: viewModel.on,
-                                                uid: viewModel.user!,
-                                                timestamp: doc.get('timestamp'),
-                                                id: doc.id,
-                                                onToggle: (bool value) {
-                                                  if (value) {
-                                                    Notifications
-                                                        .showNotifications(
-                                                      dateTime: date,
-                                                      id: index,
-                                                      title:
-                                                          'Medication Reminder: $medicationName',
-                                                      body:
-                                                          'Dosage: $dosage\nNotes: $notes\nDose Type: $doseType',
-                                                    );
-                                                  } else {
-                                                    Notifications
-                                                        .cancelNotification(
-                                                            id: index);
-                                                  }
-                                                },
+                                              Row(
+                                                children: [
+                                                  viewModel.on ?  Text('Already taken',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleLarge!
+                                                      .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.bold)):  Text('Mark as taken',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleLarge!
+                                                      .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                  Checker(
+                                                    onOff: viewModel.on,
+                                                    uid: viewModel.user!,
+                                                    timestamp: doc.get('timestamp'),
+                                                    id: doc.id,
+                                                    onToggle: (bool value) {
+                                                      if (value) {
+                                                        Notifications
+                                                            .showNotifications(
+                                                          dateTime: date,
+                                                          id: index,
+                                                          title:
+                                                              'Medication Reminder: $medicationName',
+                                                          body:
+                                                              'Dosage: $dosage\nNotes: $notes\nDose Type: $doseType',
+                                                        );
+                                                      } else {
+                                                        Notifications
+                                                            .cancelNotification(
+                                                                id: index);
+                                                      }
+                                                    },
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
