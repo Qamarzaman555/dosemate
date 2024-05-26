@@ -23,8 +23,8 @@ class Notifications {
 
   static Future init(BuildContext context, String uid) async {
     tz.initializeTimeZones();
-    final android = AndroidInitializationSettings('time_workout');
-    final settings = InitializationSettings(android: android);
+    const android = AndroidInitializationSettings('time_workout');
+    const settings = InitializationSettings(android: android);
 
     await notifications.initialize(settings,
         onDidReceiveNotificationResponse: (payload) {
@@ -45,10 +45,6 @@ class Notifications {
     String? payload,
     required DateTime dateTime,
   }) async {
-    if (dateTime.isBefore(DateTime.now())) {
-      dateTime = dateTime.add(const Duration(days: 1));
-    }
-
     notifications.zonedSchedule(
       id,
       title,
