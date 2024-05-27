@@ -24,19 +24,25 @@ class _SplashScreenState extends State<SplashScreenVU> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Spacer(),
+          const Spacer(),
           Text(
             'Dosemate',
             style: Theme.of(context).textTheme.displayMedium!.copyWith(
                 color: Theme.of(context).colorScheme.primary,
                 fontWeight: FontWeight.bold),
           ),
-          14.spaceY,
+          const SizedBox(height: 14),
+          // 14.spaceY,
           Text(
             'Be in control of your meds',
             style: Theme.of(context).textTheme.headlineSmall,
           ),
-          50.spaceY,
+          const SizedBox(height: 50),
+          // 50.spaceY,
+          // customImage(
+          //     height: MediaQuery.sizeOf(context).height / 2.8,
+          //     width: MediaQuery.sizeOf(context).width,
+          //     'assets/macro-pills.png'),
           Container(
             height: MediaQuery.sizeOf(context).height / 2.8,
             width: MediaQuery.sizeOf(context).width,

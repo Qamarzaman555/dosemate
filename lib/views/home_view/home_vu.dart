@@ -159,26 +159,33 @@ class HomeVU extends StackedView<HomeVM> {
                                               const Spacer(),
                                               Row(
                                                 children: [
-                                                  viewModel.on ?  Text('Already taken',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .titleLarge!
-                                                      .copyWith(
-                                                          fontWeight:
-                                                              FontWeight.bold)):  Text('Mark as taken',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .titleLarge!
-                                                      .copyWith(
-                                                          fontWeight:
-                                                              FontWeight.bold)),
+                                                  viewModel.on
+                                                      ? Text('Already taken',
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .titleMedium!
+                                                              .copyWith(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold))
+                                                      : Text('Mark as taken',
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .titleMedium!
+                                                              .copyWith(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
                                                   Checker(
                                                     onOff: viewModel.on,
                                                     uid: viewModel.user!,
-                                                    timestamp: doc.get('timestamp'),
+                                                    timestamp:
+                                                        doc.get('timestamp'),
                                                     id: doc.id,
                                                     onToggle: (bool value) {
-                                                      if (value) {
+                                                      if (value == true) {
                                                         Notifications
                                                             .showNotifications(
                                                           dateTime: date,
@@ -200,52 +207,66 @@ class HomeVU extends StackedView<HomeVM> {
                                             ],
                                           ),
                                           Text(
-                                            medicationName,
+                                            'Medication Name: $medicationName',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .titleMedium,
                                           ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                dosage,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium!
-                                                    .copyWith(
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                              ),
-                                              Text(formattedTime,
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 12),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Dosage: $dosage',
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .titleMedium!
                                                       .copyWith(
                                                           fontWeight:
-                                                              FontWeight.bold)),
-                                            ],
+                                                              FontWeight.bold),
+                                                ),
+                                                Text(formattedTime,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleMedium!
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold)),
+                                              ],
+                                            ),
                                           ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'Notes: $notes',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium,
-                                              ),
-                                              IconButton(
-                                                onPressed: () {
-                                                  deleteReminder(context,
-                                                      doc.id, viewModel.user!);
-                                                },
-                                                icon: const Icon(
-                                                    Icons.delete_outline),
-                                              ),
-                                            ],
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 12),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Notes: $notes',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleMedium,
+                                                ),
+                                                InkWell(
+                                                    onTap: () {
+                                                      deleteReminder(
+                                                          context,
+                                                          doc.id,
+                                                          viewModel.user!);
+                                                    },
+                                                    child: customImage(
+                                                        height: 20.0,
+                                                        width: 20.0,
+                                                        'assets/bin.png')),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),

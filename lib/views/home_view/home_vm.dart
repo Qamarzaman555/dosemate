@@ -89,16 +89,15 @@ class HomeVM extends BaseViewModel {
   Widget getDoseTypeIcon(String doseType) {
     switch (doseType) {
       case 'Tablets':
-        return const Icon(Icons.medication, color: Colors.blue);
+        return customImage('assets/medicine.png');
       case 'Pill':
-        return const Icon(Icons.medication, color: Colors.yellow);
+        return customImage('assets/capsules.png');
       case 'Liquid':
-        return const Icon(Icons.liquor, color: Colors.orange);
+        return customImage('assets/syrup.png');
       case 'Injection':
-        return const Icon(Icons.local_pharmacy, color: Colors.red);
+        return customImage('assets/needle.png');
       default:
-        return const Icon(
-            Icons.help_outline); // Default icon for unknown dose types
+        return const Icon(Icons.help_outline);
     }
   }
 }

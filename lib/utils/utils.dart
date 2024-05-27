@@ -26,3 +26,11 @@ extension EmptySpace on num {
         width: toDouble(),
       );
 }
+
+Image customImage(String imagePath, {double? height, width}) {
+  return Image(
+    height: height ?? 30.0,
+    width: width ?? 30.0,
+    image: AssetImage(imagePath),
+  );
+}
