@@ -6,9 +6,9 @@ import '../view.dart';
 class BottomNavigationBarVM extends BaseViewModel {
   int selectedIndex = 0;
   List<Widget> screenNames = [
-    HomeVU(),
-    AddReminderVU(),
-    ProfileVU(),
+    const HomeVU(),
+    const AddReminderVU(),
+    const ProfileVU(),
   ];
 
   void onItemTapped(int index) {
