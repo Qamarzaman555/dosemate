@@ -102,7 +102,7 @@ class HomeVU extends StackedView<HomeVM> {
                           DateTime date = DateTime.fromMicrosecondsSinceEpoch(
                               t.microsecondsSinceEpoch);
                           String formattedTime = DateFormat.jm().format(date);
-                          viewModel.on = doc.get('onOff');
+                          bool on = doc.get('onOff');
 
                           String medicationName = doc.get('name');
                           String dosage = doc.get('dosage');
@@ -159,7 +159,7 @@ class HomeVU extends StackedView<HomeVM> {
                                               const Spacer(),
                                               Row(
                                                 children: [
-                                                  viewModel.on
+                                                  on
                                                       ? Text('Already taken',
                                                           style: Theme.of(
                                                                   context)
@@ -179,27 +179,25 @@ class HomeVU extends StackedView<HomeVM> {
                                                                       FontWeight
                                                                           .bold)),
                                                   Checker(
-                                                    onOff: viewModel.on,
+                                                    onOff: on,
                                                     uid: viewModel.user!,
                                                     timestamp:
                                                         doc.get('timestamp'),
                                                     id: doc.id,
-                                                    onToggle: (bool value) {
-                                                      if (value == true) {
-                                                        Notifications
-                                                            .showNotifications(
-                                                          dateTime: date,
-                                                          id: index,
-                                                          title:
-                                                              'Medication Reminder: $medicationName',
-                                                          body:
-                                                              'Dosage: $dosage\nNotes: $notes\nDose Type: $doseType',
-                                                        );
-                                                      } else {
-                                                        Notifications
-                                                            .cancelNotification(
-                                                                id: index);
-                                                      }
+                                                    onToggle: (value) {
+                                                      value
+                                                          ? Notifications
+                                                              .cancelNotification(
+                                                                  id: index)
+                                                          : Notifications
+                                                              .showNotifications(
+                                                              dateTime: date,
+                                                              id: index,
+                                                              title:
+                                                                  'Medication Reminder: $medicationName',
+                                                              body:
+                                                                  'Dosage: $dosage\nNotes: $notes\nDose Type: $doseType',
+                                                            );
                                                     },
                                                   ),
                                                 ],

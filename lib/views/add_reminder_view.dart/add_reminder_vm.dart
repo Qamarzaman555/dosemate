@@ -94,7 +94,7 @@ class AddReminderVM extends BaseViewModel {
         dosage: selectedDose,
         notes: selectedNote,
         timestamp: timestamp,
-        onOff: true,
+        onOff: false, // Set the default value to false
         doseType: selectedDoseType,
       );
       await FirebaseFirestore.instance

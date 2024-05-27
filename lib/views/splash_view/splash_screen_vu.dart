@@ -31,18 +31,12 @@ class _SplashScreenState extends State<SplashScreenVU> {
                 color: Theme.of(context).colorScheme.primary,
                 fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 14),
-          // 14.spaceY,
+          14.spaceY,
           Text(
             'Be in control of your meds',
             style: Theme.of(context).textTheme.headlineSmall,
           ),
-          const SizedBox(height: 50),
-          // 50.spaceY,
-          // customImage(
-          //     height: MediaQuery.sizeOf(context).height / 2.8,
-          //     width: MediaQuery.sizeOf(context).width,
-          //     'assets/macro-pills.png'),
+          50.spaceY,
           Container(
             height: MediaQuery.sizeOf(context).height / 2.8,
             width: MediaQuery.sizeOf(context).width,
