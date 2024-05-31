@@ -11,15 +11,20 @@ class SplashScreenVU extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreenVU> {
   SplashServices splashServices = SplashServices();
+  late final ImageProvider backgroundImage;
 
   @override
   void initState() {
     super.initState();
+    backgroundImage = const AssetImage('assets/macro-pills.jpg');
     splashServices.isLogin(context);
   }
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height / 2.8;
+    final double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -37,16 +42,14 @@ class _SplashScreenState extends State<SplashScreenVU> {
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           50.spaceY,
-          Container(
-            height: MediaQuery.sizeOf(context).height / 2.8,
-            width: MediaQuery.sizeOf(context).width,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/macro-pills.jpg'),
-                fit: BoxFit.cover,
-              ),
+          SizedBox(
+            height: screenHeight,
+            width: screenWidth,
+            child: Image(
+              image: backgroundImage,
+              fit: BoxFit.cover,
             ),
-          )
+          ),
         ],
       ),
     );
