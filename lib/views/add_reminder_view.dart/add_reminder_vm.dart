@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:horizontal_center_date_picker/datepicker_controller.dart';
 import 'package:stacked/stacked.dart';
 import '../../models/medication_model.dart';
+import '../../services/notifications.dart';
 import '../../services/session_manager.dart';
 import '../../utils/routes/routes_name.dart';
 import '../../utils/utils.dart';
@@ -21,15 +22,15 @@ class AddReminderVM extends BaseViewModel {
   String? selectedDose;
 
   List<DoseTypeModel> doseTypeModel = [
-    DoseTypeModel(Icons.medication_outlined, 'Tablets'),
-    DoseTypeModel(Icons.medication_outlined, 'Pill'),
-    DoseTypeModel(Icons.medication_outlined, 'Liquid'),
-    DoseTypeModel(Icons.medication_outlined, 'Injection'),
+    DoseTypeModel(customImage('assets/medicine.png'), 'Tablets'),
+    DoseTypeModel(customImage('assets/capsules.png'), 'Pill'),
+    DoseTypeModel(customImage('assets/syrup.png'), 'Liquid'),
+    DoseTypeModel(customImage('assets/needle.png'), 'Injection'),
   ];
   Map<String, List<String>> doseOptions = {
-    'Tablets': ['20 mg', '40 mg', '60 mg'],
+    'Tablets': ['200 mg', '400 mg', '600 mg'],
     'Pill': ['1 pill', '2 pills', '3 pills'],
-    'Liquid': ['10 ml', '20 ml', '30 ml'],
+    'Liquid': ['1 spoon', '2 spoons', '3 spoons'],
     'Injection': ['1 shot', '2 shots', '3 shots'],
   };
 
@@ -94,7 +95,7 @@ class AddReminderVM extends BaseViewModel {
         dosage: selectedDose,
         notes: selectedNote,
         timestamp: timestamp,
-        onOff: false, // Set the default value to false
+        onOff: false,
         doseType: selectedDoseType,
       );
       await FirebaseFirestore.instance
@@ -103,6 +104,13 @@ class AddReminderVM extends BaseViewModel {
           .collection('reminder')
           .doc()
           .set(medicationModel.toJson());
+
+      Notifications.showNotifications(
+        dateTime: dateTime,
+        title: 'Medication Reminder',
+        body: 'Don\'t forget to take your medication: $name',
+        payload: 'medication_reminder',
+      );
 
       Utils.toastMessage('Reminder Added');
     } catch (e) {

@@ -2,7 +2,7 @@ import 'package:dosemate/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class DropdownItem extends StatelessWidget {
-  final IconData icon;
+  final Widget icon;
   final String text;
 
   const DropdownItem({super.key, required this.icon, required this.text});
@@ -11,7 +11,7 @@ class DropdownItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(icon),
+        icon,
         8.spaceX,
         Text(text),
       ],

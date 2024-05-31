@@ -22,7 +22,6 @@ class HomeVM extends BaseViewModel {
   DatePickerController datePickerController = DatePickerController();
 
   final user = SessionController().userId;
-  bool? on;
   String? profileImageUrl;
   String? firstName;
   String? lastName;

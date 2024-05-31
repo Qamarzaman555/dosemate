@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DoseTypeModel {
-  IconData? icon;
+  Widget? icon;
   String? doseType;
 
   DoseTypeModel(

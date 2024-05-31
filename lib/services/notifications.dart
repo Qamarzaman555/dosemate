@@ -10,35 +10,39 @@ class Notifications {
   static final notifications = FlutterLocalNotificationsPlugin();
   static final onNotifications = BehaviorSubject<String?>();
 
-  static Future notificationsDetails() async {
+  static Future<NotificationDetails> notificationsDetails() async {
     return const NotificationDetails(
       android: AndroidNotificationDetails(
+        'medicine_reminder_channel',
         'Medicine Reminder',
-        "Don't Forget to Take Your Medicines",
+        channelDescription: "Don't Forget to Take Your Medicines",
         importance: Importance.max,
         priority: Priority.max,
       ),
     );
   }
 
-  static Future init(BuildContext context, String uid) async {
+  static Future<void> init(BuildContext context, String uid) async {
     tz.initializeTimeZones();
-    const android = AndroidInitializationSettings('time_workout');
+    const android = AndroidInitializationSettings('@mipmap/ic_launcher');
     const settings = InitializationSettings(android: android);
 
-    await notifications.initialize(settings,
-        onDidReceiveNotificationResponse: (payload) {
-      Navigator.pushReplacement(
+    await notifications.initialize(
+      settings,
+      onDidReceiveNotificationResponse: (response) {
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => const HomeVU(),
-          ));
+          ),
+        );
 
-      onNotifications.add(payload as String);
-    });
+        onNotifications.add(response.payload);
+      },
+    );
   }
 
-  static Future showNotifications({
+  static Future<void> showNotifications({
     int id = 0,
     String? title,
     String? body,
